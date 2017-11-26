@@ -11,7 +11,7 @@
         $('#frmMaintainance').validate({
             errorClass: 'red',
             ignore: [],
-            lang: 'vi',
+            lang: 'en',
             rules: {
                 txtNameM: { required: true },
                 ddlCategoryIdM: { required: true },

@@ -80,11 +80,14 @@ namespace ShopApp.Web
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
+             services.AddTransient<IPermissionRepository, PermissionRepository>();
 
             // Serrvices
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IFunctionService, FunctionService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             // Mvc
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
