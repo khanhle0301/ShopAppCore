@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +15,7 @@ using ShopApp.Data.EF.Repositories;
 using ShopApp.Data.Entities;
 using ShopApp.Data.IRepositories;
 using ShopApp.Infrastructure.Interfaces;
+using ShopApp.Web.Authorization;
 using ShopApp.Web.Helpers;
 using ShopApp.Web.Services;
 using System;
@@ -88,6 +90,8 @@ namespace ShopApp.Web
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
+
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
             // Mvc
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());

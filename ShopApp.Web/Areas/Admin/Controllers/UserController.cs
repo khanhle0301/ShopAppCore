@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ShopApp.Application.Interfaces;
 using ShopApp.Application.ViewModels.System;
+using ShopApp.Web.Authorization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,14 +13,20 @@ namespace ShopApp.Web.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IAuthorizationService authorizationService)
         {
             _userService = userService;
+            _authorizationService = authorizationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var result = await _authorizationService.AuthorizeAsync(User, "USER", Operations.Read);
+            if (result.Succeeded == false)
+                return new RedirectResult("/Admin/Login/Index");
+
             return View();
         }
 
